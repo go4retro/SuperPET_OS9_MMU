@@ -1,0 +1,177 @@
+Assembly Guide for TPUG MMU
+
+
+1. Remove CPU board from PET
+
+   - Tip unit on its side and remove (2) screws holding top housing to
+     base.
+
+   - Place back in upright position and carefully swing top housing
+     back on built-in hinges.  Most of the cabling between the CRT and
+     the lower case is not long enough to permit it to lie against the
+     table top, so be sure to support the rear of the CRT housing to
+     avoid damage.
+
+   - Unplug all cables from CPU board.  Make sure you photograph them
+     beforehand or label them to ensure they are replaced in the
+     correct orientation and position!
+
+   - Remove (4) machine screws at the corners and lift CPU out of
+     lower case.
+
+     [disassemble.jpg]
+
+2. Remove LS273 chip at U36 and replace with socket
+
+   - Clip pins as close to the body of the IC as possible.
+
+     [u36_remove.jpg]
+     [u36_clipped.jpg]
+
+   - Add small amount of flux and carefully remove remaining portion
+     of pins from PCB.
+
+     [u36_pin_desolder.jpg]
+
+   - Clean holes with solder braid
+
+     [u36_braid.jpg]
+     [u36_cleaned.jpg]
+
+   - Mount 20-pin DIP socket at U36 and clean excess flux
+
+     [u36_socket.jpg]
+
+3. Carefully pull 6809 CPU from socket and set aside.
+
+     [pull_6809.jpg]
+
+4. Align the 40-pin DIP socket as shown and solder to board.
+
+   - Start with pins at opposite corners and check to ensure socket is
+     aligned properly.
+
+   - Solder remaining pins.
+
+     [cpu_socket_top.jpg]
+     [cpu_socket_bot.jpg]
+
+5. Mount the 40-pin DIP header to bottom of PCB.
+
+   - Check (and double check) the location and pin registration.
+
+     [cpu_header_locate.jpg]
+
+   - Make sure that the side of the header with raised areas is facing
+     the PCB.
+
+     [cpu_header_orient.jpg]
+
+   - Clip the center plastic cross-piece from the CPU socket to
+     provide access and solder all header pins from top of board. If
+     you have trouble reaching the end pins under the CPU socket,
+     consider clipping the end pieces as well.
+
+     [cpu_header_top.jpg]
+
+6. Mount the A & B header strips and remaining IC sockets.
+
+   - Cut the 30-pin single-inline header strip into (3) 10-pin
+     sections. 
+
+   - Using a 20-pin IC to maintain spacing and alignment, solder them
+     to the board at locations "A" and "B".
+
+     [ab_align.jpg]
+     [ab_done.jpg]
+
+   - Mount all remaining IC sockets, making sure the keyed end aligns
+     with screened legends on board.
+
+6. Solder jumper pins and bypass caps to the board as shown.
+
+     [caps_jumpers.jpg]
+
+7. Carefully align 40-pin machined socket over header pins and press
+   down until flush.
+
+   [header_ext.jpg]
+
+8. Remove excess flux from PCB and check carefully for cold solder
+   joints, solder-bridges, etc.
+
+8. Insert all ICs into sockets.  Double-check part number against
+   screened legend on PCB. Be very careful with alignment of 6809
+   pins as these parts tend to have very thin and fragile leads.
+
+   [chips_inserted.jpg]
+
+9. Carefully align the header extension over the motherboard CPU
+   socket and seat it completely.  Check very carefully from all
+   angles to ensure that all pins are properly aligned!
+
+10. Plug the 20-pin jumper cable into the socket at U36 and the "A"
+    location on the MMU board.  
+
+    Note: If you have the older 3-board SuperPET, you will need to use
+    the "B" location.
+
+    [reassembled.jpg]
+
+11. Fasten the CPU board back into the PET and reconnect all cables.
+    Check carefully to ensure everything is properly registered with
+    the header pins.
+
+======================================================================
+
+(From original TPUG documentation)
+
+Testing the board:
+------------------
+
+     1.0 Connect the power cord to the SuperPET
+     2.0 Toggle the CPU select switch to 6502
+     3.0 Toggle the RAM read/write protection switch to WRITE
+     4.0 Turn the power on....
+            Did the Commodore greeting message appear ???
+            if it did, continue with step 5.0,
+            else 
+                   TURN THE POWER OFF
+                   check the CPU/MMU 40 pins sockets for bent or
+                   improperly connected legs.
+         
+          if the problem cannot be resolved, call TPUG for help
+     5.0 Toggle the CPU select switch to 6809 mode...
+          
+  Did the Waterloo greeting message appear ???
+            if it did, continue with step 6.0
+
+            else 
+          
+          TURN THE POWER OFF and check for problems as
+                    instructed in step 4.0
+
+     6.0 Enter the Waterlo microMonitor and type the following sequence
+         of instructions:
+         
+         >b0
+         >f9000.1000 00
+         >b1
+
+         >f9000.1000 01
+         >b2
+         >f9000.1000 02
+         >
+         >b0
+         >d9000-
+                         
+ ....should dump zeros
+         >b1
+         >d9000-
+                          ....should dump ones
+         >b2
+         >d9000
+-
+                          ....should dump twos
+         
+
